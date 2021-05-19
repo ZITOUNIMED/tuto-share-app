@@ -1,0 +1,29 @@
+<p></p>
+<div class="card">
+  <div class="card-header">
+    <h2>
+      User Account
+    </h2>
+  </div>
+  <div class="card-body">
+    <div>
+      <button mat-stroked-button color="primary" (click)="editMode = !editMode;" class="pull-right">
+        Edit
+      </button>
+      <span>&nbsp;</span>
+    </div>
+    <div style="margin-top: 20px;">
+      <div *ngIf="!editMode">
+        Firstname: {{user?.firstname}} <br/>
+        Lastname: {{user?.lastname}} <br/>
+        Username: {{user?.username}} <br/>
+        E-mail: {{user?.email}}
+      </div>
+      <div *ngIf="editMode">
+        edit<br/>
+        <button>Save</button>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer"></div>
+</div>

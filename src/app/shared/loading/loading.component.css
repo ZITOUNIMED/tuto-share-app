@@ -1,0 +1,21 @@
+.loading-div {
+  display : block;
+  position : fixed;
+  z-index: 998;
+  opacity : 0.7;
+  background-position : center;
+  left : 0;
+  bottom : 0;
+  right : 0;
+  top : 0;
+  display: flex;
+  justify-content: center;
+}
+
+.loading-image{
+  top : 30%;
+  position : absolute;
+  z-index : 999;
+  width : 150px;
+  height : 150px;
+}

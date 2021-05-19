@@ -1,0 +1,43 @@
+<div class="nav-item dropdown">
+  <span class="nav-link dropdown-toggle" id="accountDropDown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <i class="fa fa-user" aria-hidden="true"></i>
+    Account
+  </span>
+  <div aria-labelledby="accountDropDown">
+    <ul class="dropdown-menu" >
+        <li>
+            <div class="navbar-content">
+                <div class="row">
+                    <div class="col-md-5">
+                        <img src="http://placehold.it/120x120"
+                            alt="Alternate Text" class="img-responsive" />
+                        <p class="text-center small">
+                            <a href="" class="btn btn-default btn-sm disabled">Change Photo</a></p>
+                    </div>
+                    <div class="col-md-7">
+                        <span>{{user?.firstname}} {{user?.lastname}}</span>
+                        <p class="text-muted small">{{user?.email}}</p>
+                        <div class="divider">
+                        </div>
+                        <a href="" class="btn btn-primary btn-sm active" [ngClass]="{'disabled': isGuest}"
+                          [routerLink]="[{outlets: { homeOutlet: 'account'}}]"
+                        >View Profile</a>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar-footer">
+                <div class="navbar-footer-content">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a href="" class="btn btn-default btn-sm disabled">Change Passowrd</a>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="" (click)="signout()" class="btn btn-default btn-sm pull-right">Sign Out</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+  </div>
+</div>

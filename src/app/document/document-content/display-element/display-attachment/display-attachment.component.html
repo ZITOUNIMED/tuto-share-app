@@ -1,0 +1,6 @@
+<div *ngIf="attachmentContent?.data">
+  <img [src]="'data:image/jpeg;base64,'+ attachmentContent.data"
+  width="{{attachmentContent.width}}"
+  height="{{attachmentContent.height}}"
+/>
+</div>

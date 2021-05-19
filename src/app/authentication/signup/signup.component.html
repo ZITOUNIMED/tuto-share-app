@@ -1,0 +1,56 @@
+<div class="signup-form">
+  <div class="text-center">
+    <app-notifications></app-notifications>
+  </div>
+  <form [formGroup]="signupForm">
+    <h2>Register</h2>
+    <p class="hint-text">Create your account. It's free and only takes a minute.</p>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-6"><input type="text" class="form-control" formControlName="firstname" placeholder="First Name"></div>
+        <div class="col-md-6"><input type="text" class="form-control" formControlName="lastname" placeholder="Last Name"></div>
+      </div>
+      <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="alert alert-danger">
+        <span *ngIf="firstname.errors.required">Firstname is required!</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Username" formControlName="username">
+      <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert alert-danger">
+        <span *ngIf="username.errors.required">Username is required!</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <input type="password" class="form-control" placeholder="Password" formControlName="password">
+      <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+        <span *ngIf="password.errors.digitNumber">A digit character!<br/></span>
+        <span *ngIf="password.errors.lowercase">A lower case letter!<br/></span>
+        <span *ngIf="password.errors.uppercase">An upper case letter!<br/></span>
+        <span *ngIf="password.errors.specialCharacter">A special character!<br/></span>
+        <span *ngIf="password.errors.noWhiteSpace">No whitespace allowed!<br/></span>
+        <span *ngIf="password.errors.minlength">Minlength is 10!</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <input type="password" class="form-control" placeholder="Confirm Password" formControlName="passwordConfirm">
+      <div *ngIf="passwordConfirm.invalid && (passwordConfirm.dirty || passwordConfirm.touched)" class="alert alert-danger">
+        <span *ngIf="!passwordConfirm.errors.required && passwordConfirm.errors.passwordConfirm">Passwords are different!</span>
+        <span *ngIf="passwordConfirm.errors.required">Confirm Password is required!</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <input type="email" class="form-control" placeholder="E-mail" formControlName="email">
+      <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+        <span *ngIf="email.errors.email">Invalid email!</span>
+        <span *ngIf="email.errors.required">Email is required!</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="checkbox-inline"><input type="checkbox"> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
+    </div>
+    <div class="form-group">
+      <button (click)="signup()" [disabled]="signupForm.invalid" class="btn btn-success btn-lg btn-block">Register Now</button>
+    </div>
+  </form>
+  <div class="text-center">Already have an account? <a href="#" [routerLink]="['/auth/login']">Sign in</a></div>
+</div>

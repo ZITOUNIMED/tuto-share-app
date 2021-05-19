@@ -1,0 +1,57 @@
+<h1 mat-dialog-title>
+  {{ data?.doc?.name ? 'Update' : 'New'}} document
+</h1>
+<mat-dialog-content class="mat-typography modal-content">
+  <form [formGroup]="createUpdateDocForm">
+    <div class="form-group">
+      <label class="font-weight-bold">Document Name*</label>
+      <input class="form-control" matInput placeholder="Document Name here!" formControlName="name"/>
+      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+        <span *ngIf="name.errors.required">Name is required.</span>
+        <span *ngIf="name.errors.minlength">Name must be at least 4 characters long.</span>
+        <span *ngIf="name.errors.maxlength">Name's long must be less thant {{INPUT_TEXT_LONG}}.</span>
+      </div>
+      <div class="pull-right">{{name?.value?.length}} / {{INPUT_TEXT_LONG}}</div>
+    </div>
+    <div class="form-group">
+      <label class="font-weight-bold">Confidentiality</label>
+      <select class="form-control" id="confidentiality" formControlName="confidentiality">
+        <option [value]="ConfidentialityTypes.PUBLIC">Public</option>
+        <option [value]="ConfidentialityTypes.PRIVATE">Private</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="font-weight-bold">Author *</label>
+      <input type="text" placeholder="Author Name here!" class="form-control" matInput formControlName="author"/>
+      <div *ngIf="author.invalid && (author.dirty || author.touched)" class="alert alert-danger">
+        <span *ngIf="author.errors.required">Author is required.</span>
+        <span *ngIf="author.errors.minlength">Author must be at least 4 characters long.</span>
+        <span *ngIf="author.errors.maxlength">Author's long must be less thant {{INPUT_TEXT_LONG}}.</span>
+      </div>
+      <div class="pull-right">{{author?.value?.length}} / {{INPUT_TEXT_LONG}}</div>
+    </div>
+    <div>
+      <label class="font-weight-bold">Description</label>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width">
+        <textarea
+          matInput
+          placeholder="Description here!"
+          rows="5"
+          formControlName="description"
+        ></textarea>
+      </mat-form-field>
+      <div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
+        <span *ngIf="description.errors.maxlength">Description's long must be less thant {{DOCUMENT_DESCRITION_MAX_LENGTH}}.</span>
+      </div>
+      <div class="pull-right">{{description?.value?.length}} / {{DESCRITION_MAX_LENGTH}}</div>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
+  <button mat-button [mat-dialog-close]="doc" [disabled]="createUpdateDocForm.invalid" color="primary">
+    {{ data?.doc?.name ? 'Update' : 'Create'}}
+  </button>
+</mat-dialog-actions>

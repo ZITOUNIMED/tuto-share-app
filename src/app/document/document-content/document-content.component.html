@@ -1,0 +1,98 @@
+<div class="card"
+  *ngIf="(documentWrapperState$ | async).biggerPage>=0 || (documentWrapperState$ | async).editMode">
+  <div class="card-header">
+    <app-content-header [documentWrapperState$]="documentWrapperState$"
+    [doc]="doc"></app-content-header>
+  </div>
+  <div class="card-body content-body">
+    <div class="list"
+      cdkDropList
+      [cdkDropListDisabled]="!(documentWrapperState$ | async).editMode"
+      #todoList="cdkDropList"
+      [cdkDropListData]="(documentWrapperState$ | async).currentPageElements"
+      (cdkDropListDropped)="onDrop($event)">
+      <div class="app-card" *ngFor="let element of (documentWrapperState$ | async).currentPageElements"
+      cdkDrag
+      (cdkDragMoved)="cdkDragMoved($event)"
+      (cdkDragEnded)="appStoreService.dragAndDropEnded(true)"
+      (cdkDragStarted)="appStoreService.dragAndDropElement({row: element.row, page: element.page})"
+      [cdkDragDisabled]="(documentWrapperState$ | async).selectedElement &&
+      (documentWrapperState$ | async).selectedElement.row === element.row
+       && (documentWrapperState$ | async).selectedElement.page == element.page"
+      >
+        <div class="row"
+          [hidden]="(documentWrapperState$ | async).selectedElement?.row === element.row &&
+            (documentWrapperState$ | async).selectedElement?.page === element.page &&
+            (documentWrapperState$ | async).editMode">
+          <div [ngClass]="{ 'col-md-11': (documentWrapperState$ | async).editMode,
+            'col-md-12': !(documentWrapperState$ | async).editMode }">
+            <app-display-element [element]="element"></app-display-element>
+          </div>
+          <div class="col-md-1" *ngIf="(documentWrapperState$ | async).editMode">
+            <div *ngIf="element.row !== (documentWrapperState$ | async).movedItem.row ||
+              element.page !== (documentWrapperState$ | async).movedItem.page"
+              class="btn-group">
+              <button class="btn btn-xs btn-primary" (click)="appStoreService.selectElement(element)">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+              </button>
+              <button class="btn btn-xs btn-default btn-danger"
+                (click)="appStoreService.deleteElement({row: element.row, page: element.page})">
+                <i class="fa fa-times" aria-hidden="true"></i>
+              </button>
+              <button class="btn btn-xs btn-default"
+                (click)="appStoreService.moveElement({row: element.row, page: element.page})">
+                <i class="fa fa-arrows" aria-hidden="true"></i>
+              </button>
+            </div>
+            <app-content-move-element
+              [documentWrapperState$]="documentWrapperState$"
+              [element]="element">
+            </app-content-move-element>
+          </div>
+        </div>
+        <div [hidden]="(documentWrapperState$ | async).selectedElement?.row !== element.row ||
+          (documentWrapperState$ | async).selectedElement?.page !== element.page ||
+          !(documentWrapperState$ | async).editMode">
+          <app-document-palette [element]="(documentWrapperState$ | async).selectedElement"
+            (onSubmitChange)="appStoreService.saveElement($event)"
+            (cancelChange)="appStoreService.cancelEditElement($event)">
+          </app-document-palette>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!(documentWrapperState$ | async).selectedElement && (documentWrapperState$ | async).editMode">
+      <app-document-palette (onSubmitChange)="appStoreService.saveElement($event)"
+      (cancelChange)="appStoreService.cancelEditElement($event)">
+      </app-document-palette>
+    </div>
+  </div>
+  <div class="card-footer" *ngIf="(documentWrapperState$ | async).editMode">
+    <div *ngIf="(documentWrapperState$ | async).editMode" class="pull-right">
+      <button mat-stroked-button (click)="cancelDocumentChanges()">Cancel</button>
+      <button mat-flat-button color="primary" (click)="saveDocument()">
+        Save
+      </button>
+    </div>
+  </div>
+  <div class="card-footer">
+    <app-content-footer [documentWrapperState$]="documentWrapperState$"
+    [doc]="doc">
+    </app-content-footer>
+  </div>
+</div>
+  <!-- ; else empty -->
+<!-- <ng-template #empty>
+  <div class="card">
+    <div class="card-header">
+      <div class="pull-right">
+        <mat-chip (click)="changeEditMode()" color="primary">
+          <i *ngIf="!editMode" class="fa fa-pencil"></i>
+          <i *ngIf="editMode" class="fa fa-book" aria-hidden="true"></i>
+        </mat-chip>
+      </div>
+    </div>
+    <div class="card-body contentBady">
+      Empty document!
+    </div>
+  </div>
+</ng-template> -->

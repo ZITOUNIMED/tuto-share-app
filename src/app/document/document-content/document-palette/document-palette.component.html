@@ -1,0 +1,61 @@
+<div>
+  <div class="form-group">
+    <mat-form-field class="example-full-width">
+      <mat-select
+        placeholder="Select Element Type!"
+        name="elementType"
+        [(ngModel)]="element.type"
+      >
+        <mat-option
+          *ngFor="let elementChoice of ELEMENTS_CHOICES"
+          [value]="elementChoice.key"
+          >{{ elementChoice.value }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div [ngSwitch]="true" *ngIf="element.appElementContent.type">
+    <div *ngSwitchCase="element.appElementContent.type === ElementType.TEXT" class="form-group">
+      <app-text-palette [(ngModel)]="element"></app-text-palette>
+    </div>
+    <div *ngSwitchCase="element.appElementContent.type === ElementType.ATTACHMENT" class="form-group">
+      <app-attachment-palette [(ngModel)]="element"></app-attachment-palette>
+    </div>
+    <div *ngSwitchCase="element.appElementContent.type === ElementType.SOURCE_CODE" class="form-group">
+      <app-textarea-palette [(ngModel)]="element"></app-textarea-palette>
+    </div>
+    <div
+      *ngSwitchCase="element.appElementContent.type === ElementType.BIG_TITLE ||
+        element.appElementContent.type === ElementType.MEDIUM_TITLE ||
+        element.appElementContent.type === ElementType.SMALL_TITLE ||
+        element.appElementContent.type === ElementType.VERY_SMALL_TITLE"
+      class="form-group">
+      <app-title-palette [(ngModel)]="element"></app-title-palette>
+    </div>
+    <div *ngSwitchCase="element.appElementContent.type === ElementType.LIST" class="form-group">
+      <app-list-palette [(ngModel)]="element"></app-list-palette>
+    </div>
+    <div *ngSwitchCase="element.appElementContent.type === ElementType.HYPERLINK" class="form-group">
+        <app-hyperlink-palette [(ngModel)]="element"></app-hyperlink-palette>
+    </div>
+  </div>
+  <div class="form-group">
+    <button
+      mat-stroked-button
+      [disabled]="!element.appElementContent?.type"
+      (click)="onCancel()"
+      color="warn"
+    >
+      Cancel
+    </button>
+    <button
+      [disabled]="!isValidAppElementContent(element.appElementContent)"
+      mat-flat-button
+      (click)="onSubmit()"
+      color="primary"
+      class="pull-right"
+    >
+      {{ isEditElement ? "SAVE" : "ADD" }}
+    </button>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+heroku:
+ stage: deploy
+ only:
+ - master
+ script:
+ - echo "Wake up prod server"
+ - curl 'https://tuto-share.herokuapp.com/'

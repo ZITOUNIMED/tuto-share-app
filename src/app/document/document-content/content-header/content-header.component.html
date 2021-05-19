@@ -1,0 +1,41 @@
+<div>
+  <span style="font-size:20px;cursor:pointer" (click)="openNav()">&#9776;</span>
+  <span>&nbsp;&nbsp;</span>
+  <button mat-stroked-button
+  [disabled]="!(documentWrapperState$ | async).canReturnToPreviousPage"
+  (click)="appStoreService.returnToPreviousPage(false)"
+  title="Previous Page">
+  Before
+</button>
+<label>Page: </label>
+{{ (documentWrapperState$ | async).currentPage + 1 }}/{{(documentWrapperState$ | async).biggerPage + 1}}
+<div class="pull-right">
+  <button class="btn btn-xs btn-default" [appPermissions]="documentPermissions"
+    (click)="appStoreService.changeEditMode(true)"
+    title="Change Edit Mode">
+    <i *ngIf="!(documentWrapperState$ | async).editMode" class="fa fa-pencil"></i>
+    <i *ngIf="(documentWrapperState$ | async).editMode" class="fa fa-book" aria-hidden="true"></i>
+  </button>
+  <span>&nbsp;&nbsp;</span>
+  <button *ngIf="(documentWrapperState$ | async).editMode" class="btn btn-xs btn-outline-success"
+    (click)="appStoreService.insertPage(true)"
+    title="Insert New Page">
+    <i class="fa fa-plus-square"></i>
+  </button>
+  <span>&nbsp;&nbsp;</span>
+  <button *ngIf="(documentWrapperState$ | async).editMode &&
+  (documentWrapperState$ | async).canDeletePage" class="btn btn-xs btn-outline-danger"
+    (click)="appStoreService.deletePage(true)"
+    title="delete Page">
+    <i class="fa fa-minus-circle"></i>
+  </button>
+  <span>&nbsp;&nbsp;</span>
+  <button mat-stroked-button
+    [disabled]="!(documentWrapperState$ | async).canGoToNextPage"
+    (click)="appStoreService.goToNextPage(false)"
+    title="Next Page">
+    Next
+  </button>
+</div>
+
+</div>

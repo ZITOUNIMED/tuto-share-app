@@ -1,0 +1,109 @@
+<mat-nav-list>
+  <mat-toolbar>
+    <span class="toolbar-filler"></span>
+    <mat-icon aria-label="Side nav toggle icon" (click)="drawer.close()">
+      <i class="fa fa-times"></i>
+    </mat-icon>
+  </mat-toolbar>
+  <p></p>
+  <!-- Tutos -->
+  <h2 matSubheader [appPermissions]="ADMIN_PERMISSIONS">
+    <mat-icon matListIcon>
+      <i class="fa fa-users" aria-hidden="true"></i>
+    </mat-icon>
+    Users
+  </h2>
+  <a mat-list-item href=""
+  [appPermissions]="ADMIN_PERMISSIONS"  (click)="drawer.close()"
+  [routerLink]="[{outlets: { homeOutlet: 'user'}}]">Manage Users</a>
+
+  <!-- Tutos -->
+  <h2 matSubheader>
+    <mat-icon matListIcon>
+      <i class="fa fa-book"></i>
+    </mat-icon>
+    Tutos
+  </h2>
+  <a mat-list-item data-toggle="collapse" href="#collapsePublicTutos" 
+    aria-expanded="false"
+    aria-controls="collapsePublicTutos"
+    (click)="publicChevronUp= !publicChevronUp;"
+    >
+    <i class="fa fa-globe fa-1" aria-hidden="true"></i>&nbsp;&nbsp;Public Tutos&nbsp;&nbsp;
+    <i [hidden]="publicChevronUp" class="fa fa-chevron-down" aria-hidden="true"></i>
+    <i [hidden]="!publicChevronUp" class="fa fa-chevron-up" aria-hidden="true"></i>
+  </a>
+  <div class="collapse app-list-items" id="collapsePublicTutos">
+    
+    <a mat-list-item (click)="drawer.close()" [routerLink]="[{outlets: { homeOutlet: 'document'}}]"
+      [queryParams]="{collectionType: DocumentCollectionTypes.PUBLIC_TUTOS}">
+      &nbsp;&nbsp;
+      <i class="fa fa-eye fa-1" aria-hidden="true"></i>&nbsp;&nbsp;
+      Display All
+    </a>
+    <a mat-list-item *ngFor="let tuto of publicTutosLight"
+      (click)="drawer.close()"
+      [routerLink]="['/home', {outlets: { homeOutlet: 'document/' + tuto.id}}]">
+      &nbsp;&nbsp;{{tuto.name}}
+    </a>
+  </div>
+
+  <a mat-list-item data-toggle="collapse" href="#collapseMyTutos" 
+    aria-expanded="false"
+    aria-controls="collapseMyTutos"
+    (click)="myTutoChevronUp= !myTutoChevronUp;"
+    [appPermissions]="USER_PERMISSIONS"
+    >
+    <i class="fa fa-lock fa-1" aria-hidden="true"></i>&nbsp;&nbsp;My Tutos&nbsp;&nbsp;
+    <i [hidden]="myTutoChevronUp" class="fa fa-chevron-down" aria-hidden="true"></i>
+    <i [hidden]="!myTutoChevronUp" class="fa fa-chevron-up" aria-hidden="true"></i>
+  </a>
+  <div class="collapse app-list-items" id="collapseMyTutos" [appPermissions]="USER_PERMISSIONS">
+    <a mat-list-item (click)="drawer.close()" [routerLink]="[{outlets: { homeOutlet: 'document'}}]"
+      [queryParams]="{collectionType: DocumentCollectionTypes.MY_TUTOS}"
+      [appPermissions]="USER_PERMISSIONS">&nbsp;&nbsp;
+      <i class="fa fa-eye fa-1" aria-hidden="true"></i>&nbsp;&nbsp;
+      Display All</a>
+    <a mat-list-item *ngFor="let tuto of myTutosLight"
+      (click)="drawer.close()"
+      [routerLink]="['/home', {outlets: { homeOutlet: 'document/' + tuto.id}}]">
+      &nbsp;&nbsp;{{tuto.name}}
+    </a>
+  </div>
+  <p></p>
+  <!-- <a mat-list-item (click)="drawer.close()" [routerLink]="[{outlets: { homeOutlet: 'document'}}]"
+    [queryParams]="{collectionType: DocumentCollectionTypes.ALL_TUTOS}"
+    [appPermissions]="ADMIN_PERMISSIONS">Tous les tutos</a>
+  <a mat-list-item (click)="drawer.close()" [routerLink]="[{outlets: { homeOutlet: 'document'}}]"
+    [queryParams]="{collectionType: DocumentCollectionTypes.MY_TUTOS}"
+    [appPermissions]="USER_PERMISSIONS">Mes tutos</a>
+  <a mat-list-item (click)="drawer.close()" [routerLink]="[{outlets: { homeOutlet: 'document'}}]"
+    [queryParams]="{collectionType: DocumentCollectionTypes.PUBLIC_TUTOS}">Tutos publiques</a>
+  <a mat-list-item (click)="drawer.close()" [routerLink]="[{outlets: { homeOutlet: 'document'}}]"
+    [queryParams]="{collectionType: DocumentCollectionTypes.MY_FAVORITE_TUTOS}"
+    [appPermissions]="CLOSED_FEATURE_PERMISSIONS"
+    >
+    Mes Tutos Favoris</a> -->
+<!-- <h2 matSubheader>
+  <mat-icon matListIcon color="warn">
+    <i class="fa fa-star-o" aria-hidden="true"></i>
+  </mat-icon>
+  Favoris
+</h2> -->
+<!-- <a *ngFor="let sample of documentsSamples" mat-list-item (click)="drawer.close()"
+   [routerLink]="['/home', {outlets: { homeOutlet: 'document/' + sample.id}}]">{{sample.name}}</a> -->
+  <!-- Collections -->
+  <h2 matSubheader>
+    <mat-icon matListIcon>
+      <i class="fa fa-list" aria-hidden="true"></i>
+    </mat-icon>
+    Collections
+  </h2>
+  <a mat-list-item (click)="drawer.close()" [routerLink]="[{outlets: { homeOutlet: 'collection'}}]"
+    [appPermissions]="ADMIN_AND_SOURCER_PERMISSIONS">Gérer les collections</a>
+  <a mat-list-item (click)="drawer.close()"
+    *ngFor="let collection of collections"
+    [routerLink]="[{outlets: { homeOutlet: 'document'}}]"
+    [queryParams]="{collectionId: collection.id, collectionName: collection.name}">
+    {{collection.name}}</a>
+</mat-nav-list>

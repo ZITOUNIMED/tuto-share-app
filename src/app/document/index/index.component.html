@@ -1,0 +1,9 @@
+<div class="list-group side-nav" id="mySidenav">
+  <!-- <a href="javascript:void(0)" class="closebtn" (click)="closeNav(-1)">&times;</a> -->
+  <button class="btn btn-default close-btn" (click)="closeNav(-1)">&times;</button>
+  <a href="" *ngFor="let elt of elements" class="list-group-item list-group-item-action" data-toggle="collapse" (click)="closeNav(elt.page)">
+      <span *ngIf="elt.type===ElementType.MEDIUM_TITLE">&nbsp;</span>
+      <span *ngIf="elt.type===ElementType.SMALL_TITLE">&nbsp;&nbsp;&nbsp;</span>
+      {{elt.text}}
+  </a>
+</div>

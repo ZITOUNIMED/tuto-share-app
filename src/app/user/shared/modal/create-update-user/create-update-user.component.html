@@ -1,0 +1,54 @@
+<h2 mat-dialog-title>
+  {{ data?.user?.id ? 'Update User' : 'Create New User'}}
+</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="userForm">
+    <div class="form-group">
+      <label>Username:
+        <input class="form-control" type="text" formControlName="username" />
+      </label>
+    </div>
+    <div class="form-group">
+        <label *ngIf="!data?.user?.id">Password:
+          <input class="form-control" type="text" formControlName="password" />
+        </label>
+    </div>
+     <div class="form-group">
+        <label for="exampleSelect1">Roles</label>
+        <table class="table">
+          <tbody>
+            <tr *ngFor="let role of roles" class="list-group-item row">
+              <td class="col-md-8">
+                {{role.name === RoleNameTypes.ROLE_USER ? 'User':
+                  role.name === RoleNameTypes.ROLE_GUEST ? 'Guest':
+                  role.name === RoleNameTypes.ROLE_ADMIN ? 'Admin' :
+                  role.name === RoleNameTypes.ROLE_SOURCER ? 'Sourceur': ''}}
+              </td>
+              <td class="col-md-4">
+                <button mat-stroked-button color="warn" (click)="deleteRole(role)">
+                  <i class="fa fa-minus-circle"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <select class="form-control" id="exampleSelect1" formControlName="newRoleName">
+          <option [value]="RoleNameTypes.ROLE_USER">User</option>
+          <option [value]="RoleNameTypes.ROLE_ADMIN">Admin</option>
+          <option [value]="RoleNameTypes.ROLE_SOURCER">Sourceur</option>
+          <option [value]="RoleNameTypes.ROLE_GUEST">Guest</option>
+        </select>
+        <button (click)="addRole()">Add Role</button>
+    </div>
+    <div class="form-group form-check">
+      <input type="checkbox" class="form-check-input" formControlName="enable">
+      <label class="form-check-label">Enable user</label>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
+  <button mat-button [mat-dialog-close]="buildUser()" color="primary">
+      {{ data?.user?.id ? 'Update' : 'Create'}}
+  </button>
+</mat-dialog-actions>

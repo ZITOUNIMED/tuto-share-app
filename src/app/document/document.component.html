@@ -1,0 +1,42 @@
+<p></p>
+<div class="card">
+  <div class="card-header">
+    <h2 *ngIf="queryParams">{{
+      queryParams.collectionType === DocumentCollectionTypes.MY_FAVORITE_TUTOS ? 'Mes tutos favoris' :
+      queryParams.collectionType === DocumentCollectionTypes.MY_TUTOS ? 'Mes tutos' :
+      queryParams.collectionType === DocumentCollectionTypes.ALL_TUTOS ? 'Tous les tutos':
+      queryParams.collectionType === DocumentCollectionTypes.PUBLIC_TUTOS ? 'Tutos publiques':
+      !!queryParams.collectionId ? queryParams.collectionName : 'Tutos publiques'
+    }}
+    </h2>
+  </div>
+  <div class="card-body">
+    <div>
+      <button [appPermissions]="ADMIN_AND_SOURCER_PERMISSIONS" mat-stroked-button color="primary" (click)="openImportDocumentFileDialog()" class="pull-right">
+        Import
+      </button>
+      <button
+      [appPermissions]="USER_PERMISSIONS"
+      mat-stroked-button color="primary" (click)="openCreateDocumentDialog()" class="pull-right">
+        New
+      </button>
+      <span>&nbsp;</span>
+    </div>
+    <div style="margin-top: 20px;">
+      <app-document-list
+        [documents]="documents"
+        (reloadChanged)="onReloadDocument($event)"
+      ></app-document-list>
+    </div>
+    <div class="pull-right">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item"><a class="page-link" href="javascript:void(0)" [class.disabled]="!canLoadPreviousPageDocuments()" (click)="loadPreviousPageDocuments()">Previous</a></li>
+          <li class="page-item" *ngFor="let i of paginationIndexs"><a class="page-link" href="javascript:void(0)" (click)="loadDocuments(i - 1)">{{i}}</a></li>
+          <li class="page-item"><a class="page-link" href="javascript:void(0)" [class.disabled]="!canLoadNextPageDocuments()"  (click)="loadNextPageDocuments()">Next</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="card-footer"></div>
+</div>

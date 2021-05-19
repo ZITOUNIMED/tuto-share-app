@@ -1,0 +1,11 @@
+<div>
+  <label>Name:</label>{{collection.name}}<br/>
+  <label>Members:</label>
+  <ul>
+    <li *ngFor="let member of collection.members">{{member.username}}</li>
+  </ul>
+  <label>Documents</label>
+  <ul>
+    <li *ngFor="let doc of collection.documents">{{doc.name}}</li>
+  </ul>
+</div>

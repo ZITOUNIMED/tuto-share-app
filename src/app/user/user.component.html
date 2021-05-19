@@ -1,0 +1,57 @@
+<div class="card">
+  <div class="card-header bg-info text-white">
+    G&eacute;rer les utilisateurs
+  </div>
+  <div class="card-body">
+    <div>
+      <button mat-stroked-button color="primary" (click)="openCreateUpdateUser(null)">
+        New
+      </button>
+    </div>
+    <div style="margin-top: 20px;">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Roles</th>
+            <th>Enable</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{user.username}}</td>
+            <td>
+              <select>
+                <option *ngFor="let role of user.roles">
+                  {{role.name === RoleNameTypes.ROLE_USER ? 'User':
+                    role.name === RoleNameTypes.ROLE_GUEST ? 'Guest':
+                    role.name === RoleNameTypes.ROLE_ADMIN ? 'Admin' :
+                    role.name === RoleNameTypes.ROLE_SOURCER ? 'Sourceur': ''}}</option>
+              </select>
+            </td>
+            <td><input type="checkbox" [checked]="user.enable" [disabled]="true" /></td>
+            <td>
+              <button mat-stroked-button color="warn" (click)="openDeleteUser(user)">
+                <i class="fa fa-minus-circle"></i>
+              </button>
+            </td>
+            <td>
+              <button mat-stroked-button color="info" (click)="openCreateUpdateUser(user)">
+                <i class="fa fa-pencil"></i>
+              </button>
+            </td>
+            <td>
+              <button mat-stroked-button color="info" (click)="addMemberToCollection(user)">
+                <i class="fa fa-list" aria-hidden="true"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card-footer"></div>
+</div>

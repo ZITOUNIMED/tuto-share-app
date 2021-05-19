@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>
+  Add Tuto {{data.appDocument.name}}
+</h1>
+<mat-dialog-content class="mat-typography modal-content">
+  <div class="form-group">
+    <label id="example-radio-group-label">Choose a collection</label>
+      <mat-radio-group
+        aria-labelledby="example-radio-group-label"
+        class="example-radio-group"
+        [(ngModel)]="selectedCollection">
+        <mat-radio-button class="example-radio-button" *ngFor="let collection of data.collections" [value]="collection">
+          {{collection.name}}
+        </mat-radio-button>
+      </mat-radio-group>
+      <div>Your choice is: {{selectedCollection?.name}}</div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
+  <button mat-button [mat-dialog-close]="selectedCollection" [disabled]="!selectedCollection" color="primary">
+    ADD
+  </button>
+</mat-dialog-actions>

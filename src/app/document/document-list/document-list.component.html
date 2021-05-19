@@ -1,0 +1,55 @@
+<div class="list-group-item">
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <input type="text" placeholder="Document Name" aria-label="Number" matInput [matAutocomplete]="auto" [formControl]="searchDocumentControl">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" class="example-full-width">
+        <mat-option *ngFor="let document of filteredDocuments | async" [value]="document">
+          {{document.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button [disabled]="!searchDocumentControl.value?.id" class="btn btn-default circleButton" (click)="onOpenDocument(searchDocumentControl.value)">
+      <i class="fa fa-book" aria-hidden="true"></i>
+    </button>
+  </form>
+</div>
+
+<div class="list-group">
+  <div *ngFor="let document of documents" class="list-group-item">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">
+          <a [routerLink]="['/home', {outlets: { homeOutlet: 'document/' + document.id}}]">
+          {{document.name}}</a>&nbsp;
+          <small>
+            <i class="fa fa-lock" *ngIf="document.confidentiality === ConfidentialityTypes.PRIVATE" aria-hidden="true"></i>
+            <i class="fa fa-globe" *ngIf="document.confidentiality === ConfidentialityTypes.PUBLIC" aria-hidden="true"></i>
+          </small>
+        </h5>
+        <small>{{getDocPagesLab(document)}}</small>
+      </div>
+    <label class="font-weight-bold">Author:</label>&nbsp;{{document.author}}
+    <p class="mb-1">{{document.description}}</p>
+    <p>
+      <span *ngIf="document.creationDate">Creation Date: {{document.creationDate}}<br/></span>
+      <span *ngIf="document.lastUpdateDate && document.lastUpdateDate !== document.creationDate">Last update Date: {{document.lastUpdateDate}}</span>
+    </p>
+    <div [appPermissions]="ADMIN_AND_SOURCER_PERMISSIONS">
+      <button class="btn btn-default btn-sm" (click)="addDocumentToCollection(document)">
+        <i class="fa fa-plus-square"></i> Add to collection
+      </button>
+    </div>
+    <div class="pull-right">
+      <button mat-stroked-button color="warn"
+        (click)="openDialogDeleteDocument(document)"
+        [appPermissions]="getDocumentPermissions(document)"
+        title="Delete Document">
+        <i class="fa fa-minus-circle"></i>
+      </button>
+      <button mat-stroked-button color="info" [appPermissions]="getDocumentPermissions(document)"
+        (click)="openDialogCreateUpdateDocument(document)"
+        title="Update document">
+        <i class="fa fa-pencil"></i>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="list-group">
+  <div *ngFor="let collection of collections" class="list-group-item">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">
+          <a [routerLink]="['/home', {outlets: { homeOutlet: 'collection/' + collection.id}}]">
+          {{collection.name}}</a>&nbsp;
+          <!-- <small>
+            <i class="fa fa-lock" *ngIf="document.confidentiality === ConfidentialityTypes.PRIVATE" aria-hidden="true"></i>
+            <i class="fa fa-globe" *ngIf="document.confidentiality === ConfidentialityTypes.PUBLIC" aria-hidden="true"></i>
+          </small> -->
+        </h5>
+        <!-- <small>{{getDocPagesLab(document)}}</small> -->
+      </div>
+    <!-- <label class="font-weight-bold">Author:</label>&nbsp;{{document.author}} -->
+    <p class="mb-1">{{collection.description}}</p>
+    <!-- <p>
+      <span *ngIf="document.creationDate">Creation Date: {{document.creationDate}}<br/></span>
+      <span *ngIf="document.lastUpdateDate && document.lastUpdateDate !== document.creationDate">Last update Date: {{document.lastUpdateDate}}</span>
+    </p> -->
+    <div class="pull-right">
+      <button mat-stroked-button color="warn"
+        (click)="openDialogDeleteCollection(collection)"
+        title="Delete Collection">
+        <i class="fa fa-minus-circle"></i>
+      </button>
+      <button mat-stroked-button color="info"
+        (click)="openDialogCreateUpdateCollection(collection)"
+        title="Rename document">
+        <i class="fa fa-pencil"></i>
+      </button>
+    </div>
+  </div>
+</div>

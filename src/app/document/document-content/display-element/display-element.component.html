@@ -1,0 +1,31 @@
+<div *ngIf="element && element.appElementContent">
+  <div [ngSwitch]="element.appElementContent.type">
+    <div *ngSwitchCase="ElementType.SOURCE_CODE">
+      <pre><code>{{element.appElementContent.text}}</code></pre>
+    </div>
+    <div *ngSwitchCase="ElementType.TEXT">
+      <app-display-text [text]="element.appElementContent.text"></app-display-text>
+    </div>
+    <div *ngSwitchCase="ElementType.ATTACHMENT">
+      <app-display-attachment [attachmentContent]="element.appElementContent"></app-display-attachment>
+    </div>
+    <div *ngSwitchCase="ElementType.LIST">
+      <app-display-list [text]="element.appElementContent.text"></app-display-list>
+    </div>
+    <div *ngSwitchCase="ElementType.BIG_TITLE">
+      <h1>{{ element.appElementContent.text }}</h1>
+    </div>
+    <div *ngSwitchCase="ElementType.MEDIUM_TITLE">
+      <h2>{{ element.text }}</h2>
+    </div>
+    <div *ngSwitchCase="ElementType.SMALL_TITLE">
+      <h3>{{ element.appElementContent.text }}</h3>
+    </div>
+    <div *ngSwitchCase="ElementType.VERY_SMALL_TITLE">
+      <h4>{{ element.appElementContent.text }}</h4>
+    </div>
+    <div *ngSwitchCase="ElementType.HYPERLINK">
+      <app-display-hyperlink [text]="element.text"></app-display-hyperlink>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>
+  {{ data?.collection?.name ? 'Update' : 'New'}} collection
+</h1>
+<mat-dialog-content class="mat-typography modal-content">
+  <form [formGroup]="createUpdateDocForm">
+    <div class="form-group">
+      <label class="font-weight-bold">Collection Type*</label>
+      <input class="form-control" matInput placeholder="Collection Name here!" formControlName="name"/>
+      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+        <span *ngIf="name.errors.required">Name is required.</span>
+        <span *ngIf="name.errors.minlength">Name must be at least 4 characters long.</span>
+        <span *ngIf="name.errors.maxlength">Name's long must be less thant {{INPUT_TEXT_LONG}}.</span>
+      </div>
+      <div class="pull-right">{{name?.value?.length}} / {{INPUT_TEXT_LONG}}</div>
+    </div>
+    <div>
+      <label class="font-weight-bold">Description</label>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width">
+        <textarea
+          matInput
+          placeholder="Description here!"
+          rows="5"
+          formControlName="description"
+        ></textarea>
+      </mat-form-field>
+      <div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
+        <span *ngIf="description.errors.maxlength">Description's long must be less thant {{DESCRITION_MAX_LENGTH}}.</span>
+      </div>
+      <div class="pull-right">{{description?.value?.length}} / {{DESCRITION_MAX_LENGTH}}</div>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
+  <button mat-button [mat-dialog-close]="collection" [disabled]="createUpdateDocForm.invalid" color="primary">
+    {{ data?.collection?.name ? 'Update' : 'Create'}}
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,35 @@
+
+<form [formGroup]="listForm">
+    <mat-form-field class="example-full-width">
+      <input
+        type="text"
+        placeholder="Name"
+        matInput
+        formControlName="title"
+        (ngModelChange)="changed()"
+      />
+    </mat-form-field>
+    <!--  -->
+    <div>
+      <ol>
+        <li *ngFor="let item of list.items">{{item}}
+          <span class="text-danger" (click)="deleteItem(item)">
+            <i class="fa fa-minus-circle"></i>
+          </span>
+        </li>
+      </ol>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width">
+        <textarea
+          matInput
+          placeholder="New Text item"
+          rows="4" formControlName="newItem">
+        </textarea>
+      </mat-form-field>
+      
+    </div>
+    <button mat-stroked-button color="primary" (click)="addItem()">
+      ADD ITEM
+    </button>
+  </form>

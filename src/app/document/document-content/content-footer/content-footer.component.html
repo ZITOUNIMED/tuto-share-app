@@ -1,0 +1,23 @@
+<div (window:resize)="onResize($event)">
+    <div cdkDropList 
+    cdkDropListOrientation="horizontal" 
+    class="example-list" 
+    (cdkDropListDropped)="drop($event)"
+    [cdkDropListDisabled]="!(documentWrapperState$ | async).editMode"
+    >
+        <div class="example-box move-set-index-box" (click)="previousSet()">
+          <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+        </div>
+        <div class="example-box" *ngFor="let pageIndex of displayedPagesIndex" 
+        cdkDrag
+        [ngClass]="{'current-box': pageIndex === (documentWrapperState$ | async).currentPage}"
+        (click)="appStoreService.goToPage(pageIndex)"
+        (mouseover)="appStoreService.goToPage(pageIndex, true)"  
+        >
+        {{pageIndex + 1}}
+        </div>
+        <div class="example-box move-set-index-box" (click)="nextSet()">
+          <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+        </div>
+    </div>
+  </div>

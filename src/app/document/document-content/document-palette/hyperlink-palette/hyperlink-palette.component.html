@@ -1,0 +1,20 @@
+<form [formGroup]="linkForm">
+  <mat-form-field class="example-full-width">
+    <input
+      type="text"
+      placeholder="Name"
+      matInput
+      formControlName="value"
+      (ngModelChange)="changed()"
+    />
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+      <input
+        type="text"
+        placeholder="Url"
+        matInput
+        formControlName="link"
+        (ngModelChange)="changed()"
+      />
+  </mat-form-field>
+</form>

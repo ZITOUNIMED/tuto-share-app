@@ -1,0 +1,6 @@
+export enum DocumentCollectionTypes {
+  MY_TUTOS = 'MY_TUTOS',
+  PUBLIC_TUTOS = 'PUBLIC_TUTOS',
+  MY_FAVORITE_TUTOS = 'MY_FAVORITE_TUTOS',
+  ALL_TUTOS = 'ALL_TUTOS',
+}

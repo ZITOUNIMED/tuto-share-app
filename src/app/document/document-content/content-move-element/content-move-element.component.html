@@ -1,0 +1,17 @@
+<div *ngIf="element.row === (documentWrapperState$ | async).movedItem.row &&
+  element.page === (documentWrapperState$ | async).movedItem.page">
+  <div class="btn-group-vertical">
+    <button class="btn btn-xs btn-info" [disabled]="!(documentWrapperState$ | async).canMoveUp"
+      (click)="appStoreService.moveUp({row: element.row, page: element.page})">
+      <i class="fa fa-chevron-up" aria-hidden="true"></i>
+    </button>
+    <button class="btn btn-xs btn-info" (click)="appStoreService.moveDown({row: element.row, page: element.page})"
+      >
+      <i class="fa fa-chevron-down" aria-hidden="true"></i>
+    </button>
+  </div>
+  <button class="btn btn-xs btn-default"
+    (click)="appStoreService.moveElement({row: element.row, page: element.page})">
+    <i class="fa fa-arrows" aria-hidden="true"></i>
+  </button>
+</div>
